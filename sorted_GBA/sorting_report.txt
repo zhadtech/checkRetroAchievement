@@ -1,0 +1,21 @@
+
+==================================================
+SORTING COMPLETE - SUMMARY REPORT
+==================================================
+
+Processing Duration: 0:00:01.949205
+
+Total ROMs processed: 1
+ROMs with achievements: 1
+ROMs without achievements: 0
+ROMs not found in hash library: 0
+
+Games with achievements:
+------------------------------
+Fire Emblem: The Blazing Blade: 87 achievements
+
+Statistics:
+------------------------------
+ROMs with achievements: 100.00%
+ROMs with errors: 0.00%
+ROMs not found: 0.00%
