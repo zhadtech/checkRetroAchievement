@@ -26,8 +26,8 @@ A Python utility to sort Game Boy Advance (GBA) ROMs based on whether they have 
 
 1. Clone this repository:
 ```bash
-git clone [your-repo-url]
-cd hascheevos
+git clone git@github.com:zhadtech/checkRetroAchievement.git
+cd checkRetroAchievement
 ```
 
 2. Install required Python packages:
@@ -36,8 +36,8 @@ pip install requests
 ```
 
 3. Set up your credentials:
-   - Copy `app_constants.template` to `app_constants`
-   - Edit `app_constants` with your RetroAchievements username and API key:
+   - Copy `APP_CONSTANTS.example` to `APP_CONSTANTS`
+   - Edit `APP_CONSTANTS` with your RetroAchievements username and API key:
    ```
    RA_USERNAME=your_username_here
    RA_API_KEY=your_api_key_here
@@ -60,7 +60,7 @@ python sort_roms.py
 ## Directory Structure
 
 ```
-hascheevos/
+checkRetroAchievement/
 ├── GBA/                    # Place your ROMs here
 ├── data/
 │   └── 0_hashlibrary.json # ROM hash library
