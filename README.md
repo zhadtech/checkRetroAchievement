@@ -84,7 +84,7 @@ checkRetroAchievement/
 Use this endpoint to get all the hash for GBA save it to all-gba.json
 
 ```bash
-curl --location 'https://retroachievements.org/API/API_GetGameList.php?i=5&h=1&f=1&y=ut5dYeIMLoUHuTKVnD1dVqzkqHvg9FQk&f=1'
+curl --location 'https://retroachievements.org/API/API_GetGameList.php?i=5&h=1&f=1&y=[YOUR_API_KEY]&f=1'
 ```
 
 Run the following command to update the hash data  

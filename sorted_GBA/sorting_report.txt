@@ -3,19 +3,53 @@
 SORTING COMPLETE - SUMMARY REPORT
 ==================================================
 
-Processing Duration: 0:00:01.949205
+Processing Duration: 0:07:32.132597
 
-Total ROMs processed: 1
-ROMs with achievements: 1
+Total ROMs processed: 401
+ROMs with achievements: 36
 ROMs without achievements: 0
-ROMs not found in hash library: 0
+ROMs not found in hash library: 365
 
 Games with achievements:
 ------------------------------
-Fire Emblem: The Blazing Blade: 87 achievements
+~Hack~ Pokémon Emerald Rogue V2: 260 achievements
+Pokémon Mystery Dungeon: Red Rescue Team: 128 achievements
+Sword of Mana: 101 achievements
+Super Mario Advance: 88 achievements
+Tactics Ogre: The Knight of Lodis: 87 achievements
+Summon Night: Swordcraft Story 2: 81 achievements
+Tim Burton's The Nightmare Before Christmas: The Pumpkin King: 71 achievements
+Mario Pinball Land | Super Mario Ball: 68 achievements
+Yoshi's Island: Super Mario Advance 3: 67 achievements
+Wario Land 4: 65 achievements
+Shining Soul: 63 achievements
+Super Ghouls 'n Ghosts: 60 achievements
+Teenage Mutant Ninja Turtles 2: Battle Nexus: 57 achievements
+Pokémon Pinball: Ruby & Sapphire: 54 achievements
+WarioWare: Twisted!: 50 achievements
+Super Robot Taisen: Original Generation: 48 achievements
+Super Robot Taisen: Original Generation 2: 48 achievements
+Virtual Kasparov: 47 achievements
+WarioWare, Inc.: Mega Microgames! | WarioWare, Inc.: Minigame Mania: 47 achievements
+TMNT: 38 achievements
+Puyo Pop Fever: 38 achievements
+Summon Night: Swordcraft Story: 36 achievements
+Super Street Fighter II Turbo Revival: 36 achievements
+Star Wars Trilogy: Apprentice of the Force: 34 achievements
+Stuntman: 34 achievements
+Rugrats: I Gotta Go Party: 34 achievements
+Rock n' Roll Racing: 33 achievements
+Worms Blast: 31 achievements
+Wolfenstein 3-D: 28 achievements
+Yu-Gi-Oh! Dungeon Dice Monsters: 28 achievements
+Sonic the Hedgehog: Genesis: 26 achievements
+The Polar Express: 24 achievements
+Shark Tale: 23 achievements
+Ripping Friends: The World's Most Manly Men!: 15 achievements
+Quad Desert Fury: 11 achievements
 
 Statistics:
 ------------------------------
-ROMs with achievements: 100.00%
+ROMs with achievements: 8.98%
 ROMs with errors: 0.00%
-ROMs not found: 0.00%
+ROMs not found: 91.02%
