@@ -1,36 +1,12 @@
 #!/usr/bin/env python3
 
-import os
 import hashlib
-import requests
 import shutil
-import time
 import json
+import zipfile
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional, Union
 from datetime import datetime
-
-# Read RetroAchievements API configuration from app_constants
-def read_constants():
-    try:
-        with open('APP_CONSTANTS', 'r') as f:
-            constants = {}
-            for line in f:
-                if '=' in line:
-                    key, value = line.strip().split('=', 1)
-                    constants[key] = value
-            return constants
-    except FileNotFoundError:
-        raise Exception("APP_CONSTANTS file not found. Please create it with RA_USERNAME and RA_API_KEY.")
-
-constants = read_constants()
-RA_USERNAME = constants.get('RA_USERNAME')  # Get username from constants file
-RA_API_KEY = constants.get('RA_API_KEY')    # Get API key from constants file
-
-if not RA_USERNAME or not RA_API_KEY:
-    raise Exception("RA_USERNAME and RA_API_KEY must be set in APP_CONSTANTS file")
-
-BASE_URL = "https://retroachievements.org/API"
 
 class Statistics:
     def __init__(self):
@@ -40,7 +16,7 @@ class Statistics:
         self.not_found_in_library = 0
         self.achievement_counts: Dict[str, int] = {}  # Game name -> achievement count
         self.errors: List[Tuple[str, str, str]] = []  # List of (rom_name, error_type, error_message)
-        self.api_errors: Dict[str, int] = {}  # Error type -> count
+        self.library_errors: Dict[str, int] = {}  # Error type -> count
         self.start_time = datetime.now()
 
     def add_game_with_achievements(self, game_name: str, achievement_count: int):
@@ -55,7 +31,7 @@ class Statistics:
 
     def add_error(self, rom_name: str, error_type: str, error_msg: str):
         self.errors.append((rom_name, error_type, error_msg))
-        self.api_errors[error_type] = self.api_errors.get(error_type, 0) + 1
+        self.library_errors[error_type] = self.library_errors.get(error_type, 0) + 1
 
     def print_report(self):
         duration = datetime.now() - self.start_time
@@ -77,10 +53,10 @@ class Statistics:
             for game_name, count in sorted_games:
                 print(f"{game_name}: {count} achievements")
 
-        if self.api_errors:
+        if self.library_errors:
             print("\nError Summary:")
             print("-"*30)
-            for error_type, count in sorted(self.api_errors.items()):
+            for error_type, count in sorted(self.library_errors.items()):
                 print(f"{error_type}: {count} occurrences")
 
         if self.errors:
@@ -110,146 +86,278 @@ class Statistics:
             print(f"ROMs with errors: {error_percent:.2f}%")
             print(f"ROMs not found: {not_found_percent:.2f}%")
 
-def calculate_md5(file_path):
-    """Calculate MD5 hash of a file."""
-    md5 = hashlib.md5()
-    with open(file_path, 'rb') as f:
-        while chunk := f.read(8192):
-            md5.update(chunk)
-    return md5.hexdigest().lower()
+def get_rom_data_from_file(file_path: Path) -> Optional[bytes]:
+    """Get ROM data from a file, handling archives if needed."""
+    # Check if it's an archive
+    if file_path.suffix.lower() == '.zip':
+        try:
+            with zipfile.ZipFile(file_path, 'r') as z:
+                # Find ROM files in archive (prioritize .nes, .fc, .fds)
+                rom_extensions = ['.nes', '.NES', '.fc', '.FC', '.fds', '.FDS']
+                for ext in rom_extensions:
+                    for name in z.namelist():
+                        if name.endswith(ext):
+                            return z.read(name)
+                # If no standard ROM extension found, try any file
+                if z.namelist():
+                    return z.read(z.namelist()[0])
+        except Exception as e:
+            return None
+    # TODO: Add 7z and RAR support if needed
+    # For now, treat as regular file
+    try:
+        with open(file_path, 'rb') as f:
+            return f.read()
+    except Exception:
+        return None
 
-def get_game_info(game_id):
-    """Get game information from RetroAchievements API."""
-    url = f"{BASE_URL}/API_GetGameInfoAndUserProgress.php"
-    params = {
-        'y': RA_API_KEY,
-        'u': RA_USERNAME,
-        'g': game_id
+def calculate_md5_from_data(data: bytes) -> str:
+    """Calculate MD5 hash from data."""
+    return hashlib.md5(data).hexdigest().lower()
+
+def calculate_rom_hashes(rom_data: bytes) -> List[str]:
+    """Calculate multiple hash variations for a ROM.
+    Returns list of hashes: [full_hash, no_header_hash, with_header_hash]
+    """
+    hashes = []
+    
+    # Hash the ROM as-is
+    full_hash = calculate_md5_from_data(rom_data)
+    hashes.append(full_hash)
+    
+    # Try stripping iNES header (first 16 bytes) if present
+    # iNES header starts with "NES" followed by 0x1A
+    if len(rom_data) >= 16 and rom_data[0:4] == b'NES\x1a':
+        no_header_hash = calculate_md5_from_data(rom_data[16:])
+        hashes.append(no_header_hash)
+    
+    # Try hashing without first 16 bytes (common header size)
+    if len(rom_data) > 16:
+        no_header_hash2 = calculate_md5_from_data(rom_data[16:])
+        if no_header_hash2 not in hashes:
+            hashes.append(no_header_hash2)
+    
+    return hashes
+
+def load_hash_library():
+    """Load all hash data from all_hash JSON files and create a hash -> game_info mapping."""
+    all_hash_dir = Path("all_hash")
+    
+    if not all_hash_dir.exists():
+        raise Exception(f"all_hash directory not found at {all_hash_dir.absolute()}")
+    
+    hash_to_game: Dict[str, Dict] = {}
+    
+    # Get all JSON files from all_hash folder
+    json_files = sorted(all_hash_dir.glob("*.json"))
+    
+    if not json_files:
+        raise Exception("No hash JSON files found in all_hash directory")
+    
+    print(f"Loading hash library from {len(json_files)} file(s)...")
+    
+    for json_file in json_files:
+        try:
+            with open(json_file, 'r') as f:
+                games = json.load(f)
+            
+            # Each file contains a list of games
+            for game in games:
+                game_info = {
+                    'ID': game.get('ID'),
+                    'Title': game.get('Title', ''),
+                    'ConsoleName': game.get('ConsoleName', ''),
+                    'NumAchievements': game.get('NumAchievements', 0),
+                    'ConsoleID': game.get('ConsoleID')
+                }
+                
+                # Map each hash to the game info
+                for hash_value in game.get('Hashes', []):
+                    hash_to_game[hash_value.lower()] = game_info
+            
+        except json.JSONDecodeError as e:
+            print(f"Warning: Error parsing {json_file.name}: {str(e)}")
+            continue
+        except Exception as e:
+            print(f"Warning: Error loading {json_file.name}: {str(e)}")
+            continue
+    
+    print(f"Loaded {len(hash_to_game)} hash entries")
+    return hash_to_game
+
+def get_game_info_by_hash(rom_hashes: List[str], hash_library: Dict[str, Dict]) -> Optional[Dict]:
+    """Get game information from hash using the loaded hash library.
+    Tries multiple hash variations to find a match.
+    """
+    for rom_hash in rom_hashes:
+        game_info = hash_library.get(rom_hash.lower())
+        if game_info:
+            return game_info
+    return None
+
+def get_platform_folder_name(console_name):
+    """Convert console name to folder name format (e.g., 'Arcade' -> 'sorted_ARCADE')."""
+    if not console_name:
+        return None
+    
+    # Special mappings for console names that need specific folder names
+    console_mappings = {
+        'PC Engine/TurboGrafx-16': 'PCE',
+        'PC Engine CD/TurboGrafx-CD': 'PCCD',
+        'Genesis/Mega Drive': 'GENESIS',
+        'SNES/Super Famicom': 'SNES',
+        'NES/Famicom': 'NES',
     }
     
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        
-        # Check for API-specific error responses
-        if isinstance(data, dict):
-            if data.get('Error'):
-                raise Exception(f"API Error: {data['Error']}")
-            if not data.get('Title'):
-                raise Exception("API returned empty game data")
-                
-        return data
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"Network Error: {str(e)}")
-    except json.JSONDecodeError as e:
-        raise Exception(f"Invalid JSON Response: {str(e)}")
-    except Exception as e:
-        raise Exception(f"API Error: {str(e)}")
-
-def get_game_id_by_hash(rom_hash):
-    """Get game ID from hash using a local hash library."""
-    hash_library_path = Path("data/0_hashlibrary.json")
+    # Check if there's a specific mapping
+    if console_name in console_mappings:
+        return f"sorted_{console_mappings[console_name]}"
     
-    if not hash_library_path.exists():
-        raise Exception("Hash library file not found")
-        
-    try:
-        with open(hash_library_path, 'r') as f:
-            hash_library = json.loads(f.read())
-            
-        # The hash library contains MD5 hashes mapped to game IDs
-        if not hash_library.get('Success'):
-            raise Exception("Hash library indicates failure status")
-            
-        if 'MD5List' not in hash_library:
-            raise Exception("Hash library missing MD5List")
-            
-        return hash_library['MD5List'].get(rom_hash)
-            
-    except json.JSONDecodeError as e:
-        raise Exception(f"Invalid hash library JSON: {str(e)}")
-    except Exception as e:
-        raise Exception(f"Hash library error: {str(e)}")
+    # Otherwise, convert to uppercase and replace special characters with underscores
+    # Replace spaces, slashes, hyphens, and other special chars
+    folder_name = console_name.upper()
+    # Replace common special characters
+    folder_name = folder_name.replace(' ', '_')
+    folder_name = folder_name.replace('/', '_')
+    folder_name = folder_name.replace('-', '_')
+    folder_name = folder_name.replace('&', 'AND')
+    
+    return f"sorted_{folder_name}"
 
-def sort_rom(rom_path, with_achievements_dir, without_achievements_dir, stats):
-    """Sort a single ROM file based on whether it has achievements."""
+def sort_rom(rom_path, hash_library, stats):
+    """Sort a single ROM file based on whether it has achievements.
+    ROMs with achievements are moved to platform-specific sorted folders.
+    ROMs without achievements remain in their original location."""
     print(f"\nProcessing: {rom_path.name}")
     stats.total_roms += 1
     
     try:
-        # Calculate MD5 hash
-        rom_hash = calculate_md5(str(rom_path))
-        print(f"ROM Hash (MD5): {rom_hash}")
+        # Get ROM data (handles archives)
+        rom_data = get_rom_data_from_file(rom_path)
+        if not rom_data:
+            print("Could not read ROM data - leaving in original location")
+            stats.add_error(rom_path.name, "File Read Error", "Could not read ROM data")
+            return
         
-        try:
-            # Get game ID from hash
-            game_id = get_game_id_by_hash(rom_hash)
+        # Calculate multiple hash variations
+        rom_hashes = calculate_rom_hashes(rom_data)
+        print(f"ROM Hash(es): {rom_hashes[0]}" + (f" (also tried: {', '.join(rom_hashes[1:])})" if len(rom_hashes) > 1 else ""))
+        
+        # Get game info from hash library (tries all hash variations)
+        game_info = get_game_info_by_hash(rom_hashes, hash_library)
+        
+        if not game_info:
+            print("Game not found in hash library - leaving in original location")
+            stats.add_game_not_found()
+            return  # Leave ROM in original location
+        
+        # Check if game has achievements
+        achievement_count = game_info.get('NumAchievements', 0)
+        
+        if achievement_count > 0:
+            console_name = game_info.get('ConsoleName', '')
+            game_title = game_info.get('Title', rom_path.name)
+            print(f"Found {achievement_count} achievements! Platform: {console_name}")
+            stats.add_game_with_achievements(game_title, achievement_count)
             
-            if not game_id:
-                print("Game not found in hash library")
-                stats.add_game_not_found()
-                target_dir = without_achievements_dir
+            # Get platform folder name
+            platform_folder = get_platform_folder_name(console_name)
+            if platform_folder:
+                # Create platform-specific sorted folder
+                sorted_platform_dir = Path(platform_folder)
+                sorted_platform_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Move ROM to platform-specific sorted folder
+                target_path = sorted_platform_dir / rom_path.name
+                shutil.move(str(rom_path), str(target_path))
+                print(f"Moved to: {target_path}")
             else:
-                try:
-                    # Get game info from API
-                    game_info = get_game_info(game_id)
-                    
-                    if game_info and game_info.get('NumAchievements', 0) > 0:
-                        achievement_count = game_info['NumAchievements']
-                        print(f"Found {achievement_count} achievements!")
-                        stats.add_game_with_achievements(game_info.get('Title', rom_path.name), achievement_count)
-                        target_dir = with_achievements_dir
-                    else:
-                        print("No achievements found")
-                        stats.add_game_without_achievements()
-                        target_dir = without_achievements_dir
-                except Exception as e:
-                    print(f"API Error: {str(e)}")
-                    stats.add_error(rom_path.name, "API Error", str(e))
-                    target_dir = without_achievements_dir
-        except Exception as e:
-            print(f"Hash Library Error: {str(e)}")
-            stats.add_error(rom_path.name, "Hash Library Error", str(e))
-            target_dir = without_achievements_dir
-        
-        # Move the ROM file
-        target_path = target_dir / rom_path.name
-        shutil.move(str(rom_path), str(target_path))
-        print(f"Moved to: {target_path}")
+                print("Warning: Could not determine platform - leaving in original location")
+        else:
+            print("No achievements found - leaving in original location")
+            stats.add_game_without_achievements()
+            # ROM stays in original location
 
     except Exception as e:
         error_msg = str(e)
-        print(f"File Processing Error: {error_msg}")
+        print(f"File Processing Error: {error_msg} - leaving in original location")
         stats.add_error(rom_path.name, "File Processing Error", error_msg)
+        # ROM stays in original location
+
+def get_rom_extensions():
+    """Get common ROM file extensions."""
+    return {
+        '.gba', '.gb', '.gbc', '.nes', '.sfc', '.smc',
+        '.md', '.gen', '.gg', '.lynx', '.a26',
+        '.bin', '.rom', '.pce',  # include PC Engine HuCard ROMs
+        '.zip', '.7z', '.rar',
+    }
+
+def find_rom_files(roms_dir):
+    """Recursively find all ROM files in the ROMS directory."""
+    rom_extensions = get_rom_extensions()
+    rom_files = []
+    
+    # Explicitly include these directories
+    additional_dirs = [
+        roms_dir / "ROMS_Square" / "ARCADE",
+        roms_dir / "ROMS_Square" / "FBNEO",
+        roms_dir / "ROMS_Square" / "MD",
+        roms_dir / "ROMS_Square" / "LYNX",
+    ]
+    
+    for ext in rom_extensions:
+        # Find files with this extension recursively (case-insensitive search)
+        rom_files.extend(roms_dir.rglob(f"*{ext}"))
+        rom_files.extend(roms_dir.rglob(f"*{ext.upper()}"))
+        
+        # Explicitly search in additional directories
+        for additional_dir in additional_dirs:
+            if additional_dir.exists():
+                rom_files.extend(additional_dir.rglob(f"*{ext}"))
+                rom_files.extend(additional_dir.rglob(f"*{ext.upper()}"))
+    
+    # Remove duplicates and sort
+    return sorted(set(rom_files))
 
 def main():
     # Setup directories
-    gba_dir = Path("GBA")
-    sorted_dir = Path("sorted_GBA")
-    with_achievements_dir = sorted_dir / "with_achievements"
-    without_achievements_dir = sorted_dir / "without_achievements"
+    roms_dir = Path("ROMS")
     
-    # Create output directories if they don't exist
-    with_achievements_dir.mkdir(parents=True, exist_ok=True)
-    without_achievements_dir.mkdir(parents=True, exist_ok=True)
+    if not roms_dir.exists():
+        raise Exception(f"ROMS directory not found at {roms_dir.absolute()}")
+    
+    # Load hash library
+    try:
+        hash_library = load_hash_library()
+    except Exception as e:
+        raise Exception(f"Failed to load hash library: {str(e)}")
     
     # Initialize statistics
     stats = Statistics()
     
-    # Process all GBA ROMs
-    total_roms = len(list(gba_dir.glob("*.gba")))
-    for i, rom_path in enumerate(gba_dir.glob("*.gba"), 1):
+    # Find all ROM files recursively
+    print(f"\nScanning for ROM files in {roms_dir}...")
+    rom_files = find_rom_files(roms_dir)
+    total_roms = len(rom_files)
+    
+    if total_roms == 0:
+        print(f"No ROM files found in {roms_dir}")
+        return
+    
+    print(f"Found {total_roms} ROM file(s) to process\n")
+    
+    # Process all ROMs
+    for i, rom_path in enumerate(rom_files, 1):
         print(f"\nProgress: {i}/{total_roms} ({(i/total_roms)*100:.1f}%)")
-        sort_rom(rom_path, with_achievements_dir, without_achievements_dir, stats)
-        # Add a small delay to avoid hitting API rate limits
-        time.sleep(1)
+        sort_rom(rom_path, hash_library, stats)
     
     # Print final statistics
     stats.print_report()
 
     # Save report to file
-    report_path = sorted_dir / "sorting_report.txt"
+    report_dir = Path(".")
+    report_path = report_dir / "sorting_report.txt"
     with open(report_path, 'w') as f:
         # Redirect print output to file
         import sys

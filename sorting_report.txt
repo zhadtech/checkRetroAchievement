@@ -1,0 +1,21 @@
+
+==================================================
+SORTING COMPLETE - SUMMARY REPORT
+==================================================
+
+Processing Duration: 0:00:46.007456
+
+Total ROMs processed: 5519
+ROMs with achievements: 1
+ROMs without achievements: 0
+ROMs not found in hash library: 5518
+
+Games with achievements:
+------------------------------
+Iridion 3D: 32 achievements
+
+Statistics:
+------------------------------
+ROMs with achievements: 0.02%
+ROMs with errors: 0.00%
+ROMs not found: 99.98%

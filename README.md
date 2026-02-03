@@ -81,7 +81,7 @@ checkRetroAchievement/
 - The hash library helps reduce API calls and improve sorting speed
 
 ## Update Hash library
-Use this endpoint to get all the hash for GBA save it to all-gba.json
+Use this endpoint to get all the hash for a single system (example: GBA) and save it to `all_hash/all-gba.json`
 
 ```bash
 curl --location 'https://retroachievements.org/API/API_GetGameList.php?i=5&h=1&f=1&y=[YOUR_API_KEY]&f=1'
@@ -91,6 +91,20 @@ Run the following command to update the hash data
 
 ```bash
 python convert_hash_library.py 
+```
+
+## Update `all_hash/` for all systems (auto)
+
+This repo includes a helper script to upsert (create/overwrite) `all_hash/all-*.json` for every system in `data/all_system_id.json`, with a ~1 second delay between API calls.
+
+```bash
+python update_all_hash.py
+```
+
+If you don’t want to store your API key in `APP_CONSTANTS`, you can also pass it directly:
+
+```bash
+python update_all_hash.py --api-key "[YOUR_API_KEY]"
 ```
 
 ## Troubleshooting
