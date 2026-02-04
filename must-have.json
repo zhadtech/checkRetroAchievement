@@ -1,0 +1,651 @@
+{
+  "title": "Must-Have Games",
+  "platforms": [
+    {
+      "name": "Arcade",
+      "games": [
+        {
+          "title": "64th Street: A Detective Story",
+          "description": "A 1920s detective-themed beat-'em-up."
+        },
+        {
+          "title": "Boogie Wings (The Great Ragtime Show)",
+          "description": "A steampunk shooter where you pilot a biplane with a hook."
+        },
+        {
+          "title": "Checkered Flag",
+          "description": "A simple, top-down racer similar to Micro Machines."
+        },
+        {
+          "title": "Crossed Swords 2",
+          "description": "A behind-the-back hack-and-slash (Neo Geo MVS/CD)."
+        },
+        {
+          "title": "Demon Front",
+          "description": "A run-and-gun game similar to Metal Slug but with magical pets."
+        },
+        {
+          "title": "Fast Lane",
+          "description": "A maze/driving hybrid where you collect items while avoiding a monster truck."
+        },
+        {
+          "title": "Gunbarich",
+          "description": "A colorful mix of Arkanoid brick-breaking and pinball."
+        },
+        {
+          "title": "In the Hunt",
+          "description": "A submarine shoot-'em-up with stunning pixel art by the Metal Slug team."
+        },
+        {
+          "title": "Logic Pro 2",
+          "description": "A frantic version of Picross with enemies and timers."
+        },
+        {
+          "title": "Magical Error wo Sagase",
+          "description": "A \"spot the difference\" game with mirrored and moving images."
+        },
+        {
+          "title": "Stone Ball",
+          "description": "A caveman soccer game where you club opponents."
+        },
+        {
+          "title": "Wizard Fire",
+          "description": "An isometric, Diablo-style multiplayer dungeon crawler."
+        }
+      ]
+    },
+    {
+      "name": "Atari 2600",
+      "games": [
+        {
+          "title": "Crackpots",
+          "description": "You play as a gardener dropping pots on bugs."
+        },
+        {
+          "title": "Demon Attack",
+          "description": "A fixed shooter blasting waves of colorful aliens."
+        },
+        {
+          "title": "Enduro",
+          "description": "A racing game known for its weather effects (fog/snow)."
+        },
+        {
+          "title": "Frogs and Flies",
+          "description": "A cozy multiplayer game about catching bugs."
+        },
+        {
+          "title": "Haunted House",
+          "description": "A horror-themed adventure game."
+        },
+        {
+          "title": "Moon Sweeper",
+          "description": "A space shooter with asteroid fields and moon surface rescues."
+        },
+        {
+          "title": "River Raid",
+          "description": "A vertical scrolling jet shooter requiring fuel management."
+        },
+        {
+          "title": "Seaquest",
+          "description": "An underwater rescue game defending against sharks and subs."
+        }
+      ]
+    },
+    {
+      "name": "Nintendo Entertainment System (NES)",
+      "games": [
+        {
+          "title": "Arkista's Ring",
+          "description": "An action-adventure game with puzzle elements."
+        },
+        {
+          "title": "Deja Vu",
+          "description": "A point-and-click adventure game set in 1940s Chicago."
+        },
+        {
+          "title": "Darkwing Duck",
+          "description": "A platformer based on the Disney animated series."
+        },
+        {
+          "title": "Jurassic Park",
+          "description": "An action-adventure game based on the film (NES version)."
+        },
+        {
+          "title": "Legacy of the Wizard",
+          "description": "An action RPG with multiple playable characters."
+        },
+        {
+          "title": "Pin-Bot",
+          "description": "A faithful 8-bit recreation of the Williams pinball table."
+        },
+        {
+          "title": "Shadowgate",
+          "description": "A deadly first-person point-and-click adventure."
+        },
+        {
+          "title": "Shadow of the Ninja",
+          "description": "An action platformer with co-op and weapon upgrades."
+        },
+        {
+          "title": "Sweet Home",
+          "description": "The RPG precursor to Resident Evil set in a haunted mansion."
+        },
+        {
+          "title": "Uninvited",
+          "description": "A horror-themed point-and-click adventure game."
+        }
+      ]
+    },
+    {
+      "name": "Super Nintendo (SNES)",
+      "games": [
+        {
+          "title": "Battle Pinball",
+          "description": "A Japanese pinball game featuring Ultraman and Gundam."
+        },
+        {
+          "title": "Clock Tower",
+          "description": "A tense point-and-click survival horror game featuring \"Scissorman.\""
+        },
+        {
+          "title": "Dragon View",
+          "description": "An action RPG mixing first-person exploration with side-scrolling combat."
+        },
+        {
+          "title": "E.V.O.: Search for Eden",
+          "description": "An action RPG where you evolve your creature through history."
+        },
+        {
+          "title": "Ghoul Patrol",
+          "description": "The sequel to Zombies Ate My Neighbors."
+        },
+        {
+          "title": "The King of Dragons",
+          "description": "A class-based fantasy beat-'em-up by Capcom with RPG leveling."
+        },
+        {
+          "title": "Magical Pop'n",
+          "description": "A bright action-platformer with a grappling hook mechanic."
+        },
+        {
+          "title": "Maui Mallard in Cold Shadow",
+          "description": "A platformer starring Donald Duck as a ninja."
+        },
+        {
+          "title": "The Ninja Warriors",
+          "description": "A side-scrolling beat-'em-up with cyborg ninjas."
+        },
+        {
+          "title": "Nosferatu",
+          "description": "A horror-themed action game."
+        },
+        {
+          "title": "Pieces",
+          "description": "A competitive jigsaw puzzle game with power-ups."
+        },
+        {
+          "title": "Pinball Fantasies",
+          "description": "A polished pinball game with four distinct tables."
+        },
+        {
+          "title": "Space Mega Force",
+          "description": "A vertical shooter with destructible environments."
+        },
+        {
+          "title": "Super Castlevania 4",
+          "description": "A classic spooky platformer with multidirectional whipping."
+        },
+        {
+          "title": "Super Famicom Wars",
+          "description": "The turn-based strategy predecessor to Advance Wars."
+        },
+        {
+          "title": "Trials of Mana",
+          "description": "An action RPG with multiple story paths."
+        },
+        {
+          "title": "Uniracers",
+          "description": "A fast-paced unicycle racing game."
+        },
+        {
+          "title": "Wild Guns",
+          "description": "A steampunk Wild West gallery shooter."
+        },
+        {
+          "title": "Zombies Ate My Neighbors",
+          "description": "A run-and-gun game with horror movie references."
+        }
+      ]
+    },
+    {
+      "name": "Nintendo 64",
+      "games": [
+        {
+          "title": "Body Harvest",
+          "description": "An open-world action game involving aliens and time travel."
+        }
+      ]
+    },
+    {
+      "name": "Commodore 64",
+      "games": [
+        {
+          "title": "Ultima IV: Quest of the Avatar",
+          "description": "A classic RPG focusing on virtue and character development."
+        }
+      ]
+    },
+    {
+      "name": "Game Boy (Original)",
+      "games": [
+        {
+          "title": "BurgerTime Deluxe",
+          "description": "A puzzle-platformer where you assemble burgers."
+        },
+        {
+          "title": "Castle Quest",
+          "description": "An action-adventure game."
+        },
+        {
+          "title": "Gargoyle Quest",
+          "description": "An action-platformer with RPG elements."
+        },
+        {
+          "title": "Kid Dracula",
+          "description": "A spooky platformer featuring a child vampire."
+        },
+        {
+          "title": "Legend of the River King",
+          "description": "A fishing RPG with adventure elements."
+        },
+        {
+          "title": "Monster Max",
+          "description": "A puzzle-adventure game."
+        },
+        {
+          "title": "Revenge of the Gator",
+          "description": "A pinball game."
+        },
+        {
+          "title": "Trip World",
+          "description": "A colorful platformer with transformation abilities."
+        }
+      ]
+    },
+    {
+      "name": "Game Boy Color",
+      "games": [
+        {
+          "title": "Alone in the Dark",
+          "description": "A survival horror game port."
+        },
+        {
+          "title": "Cannon Fodder",
+          "description": "A strategy-action game."
+        },
+        {
+          "title": "Great Greed",
+          "description": "An RPG with a food-themed world."
+        },
+        {
+          "title": "Heroes of Might and Magic II",
+          "description": "A strategy game port."
+        },
+        {
+          "title": "Pinball",
+          "description": "A pinball game."
+        },
+        {
+          "title": "Scooby-Doo: Classic Creep Capers",
+          "description": "A puzzle-adventure game based on the cartoon."
+        },
+        {
+          "title": "Spy vs. Spy",
+          "description": "A strategy game based on the MAD Magazine characters."
+        },
+        {
+          "title": "The Getaway: High Speed II",
+          "description": "A handheld port of the driving-themed pinball table."
+        },
+        {
+          "title": "Microsoft Pinball Arcade",
+          "description": "A GBC collection of real Gottlieb tables."
+        },
+        {
+          "title": "QIX",
+          "description": "A puzzle game where you draw lines to capture territory."
+        },
+        {
+          "title": "Roland's Curse 2",
+          "description": "A black-and-white handheld action RPG."
+        },
+        {
+          "title": "Street Fighter Alpha: Warriors' Dreams",
+          "description": "An impressive fighting game port for GBC."
+        }
+      ]
+    },
+    {
+      "name": "Game Boy Advance (GBA)",
+      "games": [
+        {
+          "title": "Bit Generations Series",
+          "description": "Minimalist games including Dotstream, Coloris, and Orbital."
+        },
+        {
+          "title": "Bookworm",
+          "description": "An addictive word-forming puzzle game."
+        },
+        {
+          "title": "Dexter's Laboratory: Chess Challenge",
+          "description": "A Battle Chess style game with cartoons."
+        },
+        {
+          "title": "Droopy's Tennis Open",
+          "description": "A wacky arcade tennis game with special courts."
+        },
+        {
+          "title": "Elf Bowling 1 & 2",
+          "description": "Infamous shovelware where Santa bowls with elves."
+        },
+        {
+          "title": "Hamtaro: Ham-Ham Heartbreak",
+          "description": "A cozy, clever adventure/puzzle game."
+        },
+        {
+          "title": "Invader",
+          "description": "A space shooter game."
+        },
+        {
+          "title": "It's Mr. Pants",
+          "description": "A bizarre puzzle game by Rare with a scribbly art style."
+        },
+        {
+          "title": "Juka and the Monophonic Menace",
+          "description": "An action-adventure game."
+        },
+        {
+          "title": "Kong: The 8th Wonder of the World",
+          "description": "A top-down puzzle-adventure based on the movie."
+        },
+        {
+          "title": "Kuru Kuru Kururin",
+          "description": "A skill game navigating a spinning stick through mazes."
+        },
+        {
+          "title": "Lilo & Stitch",
+          "description": "A surprisingly hard Contra-style shooter."
+        },
+        {
+          "title": "Mazes of Fate",
+          "description": "A first-person dungeon crawler RPG."
+        },
+        {
+          "title": "Nancy Drew: Message in a Haunted Mansion",
+          "description": "A point-and-click mystery."
+        },
+        {
+          "title": "Pac-Man Pinball Advance",
+          "description": "A pinball game where Pac-Man eats pellets on the table."
+        },
+        {
+          "title": "Pokémon Pinball: Ruby & Sapphire",
+          "description": "A pinball game with monster-catching mechanics."
+        },
+        {
+          "title": "Rhythm Tengoku",
+          "description": "The Japan-only first entry in the Rhythm Heaven series."
+        },
+        {
+          "title": "Scourge: Hive",
+          "description": "A top-down action game."
+        },
+        {
+          "title": "Sea Trader: Rise of Taipan",
+          "description": "A trading and strategy game."
+        },
+        {
+          "title": "The Simpsons: Road Rage",
+          "description": "A Crazy Taxi clone set in Springfield."
+        },
+        {
+          "title": "Steel Empire",
+          "description": "A steampunk shoot-'em-up port."
+        },
+        {
+          "title": "The Pinball of the Dead",
+          "description": "A pinball game with zombie theme."
+        },
+        {
+          "title": "TMNT",
+          "description": "A Teenage Mutant Ninja Turtles game."
+        },
+        {
+          "title": "Tomato Adventure",
+          "description": "A quirky RPG by the Mario & Luigi developers."
+        },
+        {
+          "title": "WarioWare, Inc.: Mega Microgames!",
+          "description": "A collection of chaotic 5-second microgames."
+        }
+      ]
+    },
+    {
+      "name": "Nintendo 3DS",
+      "games": [
+        {
+          "title": "Dragon Quest VII",
+          "description": "A massive RPG (the 3DS remake fixes pacing issues)."
+        }
+      ]
+    },
+    {
+      "name": "Sega Master System",
+      "games": [
+        {
+          "title": "Blades of Vengeance",
+          "description": "An action-platformer."
+        },
+        {
+          "title": "Cloud Master",
+          "description": "A shooter where you fly on a cloud fighting weird enemies."
+        },
+        {
+          "title": "Dragon's Revenge",
+          "description": "A pinball game."
+        },
+        {
+          "title": "Gangster Town",
+          "description": "A light gun shooter with a 1920s mobster theme."
+        },
+        {
+          "title": "Ghouls 'n Ghosts",
+          "description": "A challenging action-platformer."
+        },
+        {
+          "title": "Haunting Starring Polterguy",
+          "description": "A horror-themed action game."
+        },
+        {
+          "title": "Kenseiden",
+          "description": "A methodical samurai action-platformer."
+        },
+        {
+          "title": "Master of Darkness",
+          "description": "A Castlevania-style vampire hunter game."
+        },
+        {
+          "title": "Montezuma's Revenge",
+          "description": "A screen-by-screen puzzle platformer."
+        },
+        {
+          "title": "The Ooze",
+          "description": "An action game with a blob protagonist."
+        },
+        {
+          "title": "Urban Strike",
+          "description": "A helicopter combat game."
+        },
+        {
+          "title": "Zero Tolerance",
+          "description": "A first-person shooter."
+        }
+      ]
+    },
+    {
+      "name": "Sega Genesis / Mega Drive",
+      "games": [
+        {
+          "title": "Empire of Steel",
+          "description": "A steampunk shooter with \"silent storytelling.\""
+        },
+        {
+          "title": "Pirates Gold",
+          "description": "A strategy-adventure game about piracy."
+        },
+        {
+          "title": "Psycho Pinball",
+          "description": "A colorful pinball game with four themed tables."
+        },
+        {
+          "title": "Scooby-Doo and Mystery of Blake's Hotel",
+          "description": "A puzzle-adventure game."
+        },
+        {
+          "title": "Shadowrun",
+          "description": "A cyberpunk RPG based on the tabletop game."
+        },
+        {
+          "title": "Sonic Spinball",
+          "description": "A platformer/pinball hybrid set in the Sonic universe."
+        },
+        {
+          "title": "Splatterhouse 3",
+          "description": "A gory beat-'em-up horror game."
+        }
+      ]
+    },
+    {
+      "name": "Sega Game Gear",
+      "games": [
+        {
+          "title": "Ayrton Senna's Super Monaco GP II",
+          "description": "A solid handheld racing game."
+        },
+        {
+          "title": "Battletoads",
+          "description": "A faithful, difficult port of the beat-'em-up."
+        },
+        {
+          "title": "Dragon Crystal",
+          "description": "A roguelike with randomized levels and mystery potions."
+        },
+        {
+          "title": "Mega Man",
+          "description": "An original Mega Man title for the handheld."
+        },
+        {
+          "title": "Shinobi II: The Silent Fury",
+          "description": "An action game with Metroidvania elements."
+        },
+        {
+          "title": "Slider",
+          "description": "A puzzle game about changing tile colors."
+        },
+        {
+          "title": "Sonic Drift 2",
+          "description": "A kart racer with Sonic characters."
+        },
+        {
+          "title": "Tails Adventure",
+          "description": "A slower-paced Metroidvania starring Tails using bombs."
+        }
+      ]
+    },
+    {
+      "name": "PlayStation 1 (PS1)",
+      "games": [
+        {
+          "title": "Apocalypse",
+          "description": "A run-and-gun shooter starring Bruce Willis."
+        },
+        {
+          "title": "Brave Fencer Musashi",
+          "description": "An action RPG with a day/night cycle and skill stealing."
+        },
+        {
+          "title": "Deception III: Dark Delusion",
+          "description": "A strategy game about setting traps for enemies."
+        },
+        {
+          "title": "Hogs of War",
+          "description": "A 3D turn-based strategy game (like Worms) with pigs."
+        },
+        {
+          "title": "The Misadventures of Tron Bonne",
+          "description": "A genre-blending spin-off of Mega Man Legends."
+        },
+        {
+          "title": "Resident Evil 2",
+          "description": "The classic survival horror game."
+        },
+        {
+          "title": "Tenchu: Stealth Assassins",
+          "description": "A stealth-action game featuring ninjas."
+        },
+        {
+          "title": "Thrill Kill",
+          "description": "An unreleased, violent 4-player arena fighting game."
+        },
+        {
+          "title": "Tomb Raider",
+          "description": "An action-adventure game featuring Lara Croft."
+        }
+      ]
+    },
+    {
+      "name": "PlayStation 2 (PS2)",
+      "games": [
+        {
+          "title": "Katamari Damacy",
+          "description": "A quirky game about rolling objects into a giant ball."
+        }
+      ]
+    },
+    {
+      "name": "TurboGrafx-16 / PC Engine",
+      "games": [
+        {
+          "title": "Devil's Crush",
+          "description": "A gothic, occult-themed pinball game."
+        },
+        {
+          "title": "Final Lap Twin",
+          "description": "A racing game with a full RPG story mode."
+        }
+      ]
+    },
+    {
+      "name": "Neo Geo Pocket Color",
+      "games": [
+        {
+          "title": "SNK vs. Capcom: The Match of the Millennium",
+          "description": "A highly regarded handheld fighter."
+        }
+      ]
+    },
+    {
+      "name": "PC (DOS/Windows)",
+      "games": [
+        {
+          "title": "Alone in the Dark",
+          "description": "The grandfather of 3D survival horror."
+        },
+        {
+          "title": "Capture the Flag",
+          "description": "A turn-based strategy game simulating the outdoor game."
+        }
+      ]
+    }
+  ]
+}
