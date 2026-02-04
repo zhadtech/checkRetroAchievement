@@ -1,0 +1,27 @@
+Scanning must-have.json and sorted_* folders...
+============================================================
+
+
+PlayStation 1 (PS1):
+------------------------------------------------------------
+  - Apocalypse
+  - Brave Fencer Musashi
+  - Deception III: Dark Delusion
+  - Hogs of War
+  - The Misadventures of Tron Bonne
+  - Resident Evil 2
+  - Tenchu: Stealth Assassins
+  - Thrill Kill
+  - Tomb Raider
+
+PlayStation 2 (PS2):
+------------------------------------------------------------
+  - Katamari Damacy
+
+
+
+
+
+============================================================
+Total missing games: 104
+============================================================
